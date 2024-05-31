@@ -252,12 +252,19 @@ const FilterInputs = ({
           isClearable
           className="w-3/6 px-0 py-0 border bg-gray-50 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
           styles={{
-            control: (provided) => ({
+            control: (provided, state) => ({
               ...provided,
-              // padding: "0.5rem",
-              borderColor: "bg-gray-50 border-gray-300",
-              // borderRadius: "0.375rem",
-              // boxShadow: "none",
+              borderColor: "rgba(209, 213, 219, 0)", // border-gray-300
+              boxShadow: state.isFocused
+                ? "0 0 0 1px rgba(107, 114, 128, 1)"
+                : provided.boxShadow, // focus:ring-gray-500
+              "&:hover": {
+                borderColor: "rgba(209, 213, 219, 0)", // border-gray-300 on hover
+              },
+            }),
+            placeholder: (provided) => ({
+              ...provided,
+              color: "rgba(156, 163, 175, 1)", // text-gray-500
             }),
           }}
         />
@@ -301,12 +308,19 @@ const FilterInputs = ({
             isClearable
             className="w-2/6 px-0 mr-2 py-0 border bg-gray-50 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
             styles={{
-              control: (provided) => ({
+              control: (provided, state) => ({
                 ...provided,
-                // padding: "0.5rem",
-                // borderColor: "bg-gray-50 border-gray-300",
-                // borderRadius: "0.375rem",
-                // boxShadow: "none",
+                borderColor: "rgba(209, 213, 219, 0)", // border-gray-300
+                boxShadow: state.isFocused
+                  ? "0 0 0 1px rgba(107, 114, 128, 1)"
+                  : provided.boxShadow, // focus:ring-gray-500
+                "&:hover": {
+                  borderColor: "rgba(209, 213, 219, 0)", // border-gray-300 on hover
+                },
+              }),
+              placeholder: (provided) => ({
+                ...provided,
+                color: "rgba(156, 163, 175, 1)", // text-gray-500
               }),
             }}
           />
@@ -345,12 +359,19 @@ const FilterInputs = ({
             isClearable
             className="w-3/6 px-0 py-0 border bg-gray-50 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
             styles={{
-              control: (provided) => ({
+              control: (provided, state) => ({
                 ...provided,
-                // padding: "0.5rem",
-                // borderColor: "bg-gray-50 border-gray-300",
-                // borderRadius: "0.375rem",
-                // boxShadow: "none",
+                borderColor: "rgba(209, 213, 219, 0)", // border-gray-300
+                boxShadow: state.isFocused
+                  ? "0 0 0 1px rgba(107, 114, 128, 1)"
+                  : provided.boxShadow, // focus:ring-gray-500
+                "&:hover": {
+                  borderColor: "rgba(209, 213, 219, 0)", // border-gray-300 on hover
+                },
+              }),
+              placeholder: (provided) => ({
+                ...provided,
+                color: "rgba(156, 163, 175, 1)", // text-gray-500
               }),
             }}
           />
@@ -449,12 +470,19 @@ const FilterInputs = ({
                               i === 0 ? 2 : 0
                             } py-0 mx-2 border bg-gray-50 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm`}
                             styles={{
-                              control: (provided) => ({
+                              control: (provided, state) => ({
                                 ...provided,
-                                // padding: "0.5rem",
-                                // borderColor: "bg-gray-50 border-gray-300",
-                                // borderRadius: "0.375rem",
-                                // boxShadow: "none",
+                                borderColor: "rgba(209, 213, 219, 0)", // border-gray-300
+                                boxShadow: state.isFocused
+                                  ? "0 0 0 1px rgba(107, 114, 128, 1)"
+                                  : provided.boxShadow, // focus:ring-gray-500
+                                "&:hover": {
+                                  borderColor: "rgba(209, 213, 219, 0)", // border-gray-300 on hover
+                                },
+                              }),
+                              placeholder: (provided) => ({
+                                ...provided,
+                                color: "rgba(156, 163, 175, 1)", // text-gray-500
                               }),
                             }}
                           />
@@ -497,12 +525,19 @@ const FilterInputs = ({
                             isClearable
                             className="w-2/6 px-0 mx-2 mr-2 py-0 border bg-gray-50 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
                             styles={{
-                              control: (provided) => ({
+                              control: (provided, state) => ({
                                 ...provided,
-                                // padding: "0.5rem",
-                                // borderColor: "bg-gray-50 border-gray-300",
-                                // borderRadius: "0.375rem",
-                                // boxShadow: "none",
+                                borderColor: "rgba(209, 213, 219, 0)", // border-gray-300
+                                boxShadow: state.isFocused
+                                  ? "0 0 0 1px rgba(107, 114, 128, 1)"
+                                  : provided.boxShadow, // focus:ring-gray-500
+                                "&:hover": {
+                                  borderColor: "rgba(209, 213, 219, 0)", // border-gray-300 on hover
+                                },
+                              }),
+                              placeholder: (provided) => ({
+                                ...provided,
+                                color: "rgba(156, 163, 175, 1)", // text-gray-500
                               }),
                             }}
                           />
