@@ -130,6 +130,7 @@ const FilterInputs = ({
     );
   };
 
+  // Deletes an event data filter
   const handleDeleteEventDataFilter = (childIndex) => {
     const newEventDataChildFilters = filter.eventDataChildFilters.filter(
       (_, i) => i !== childIndex
@@ -161,6 +162,7 @@ const FilterInputs = ({
     handleFilterChange(e);
   };
 
+  // change will be 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     const newFilter = {
@@ -223,14 +225,14 @@ const FilterInputs = ({
     return (
       <div
         key="attribute"
-        className={`ml-${index === 0 ? 0 : 1} p-1 flex gap-4`}
+        className={`-ml-${index === 0 ? 0 : 0} p-1 flex gap-4`}
       >
         <select
           name="filterType"
           value={filter.filterType}
           onChange={handleFilterTypeChange}
           className={`w-2/6 -ml-${
-            index === 0 ? 2 : 3
+            index === 0 ? 2 : 2
           } px-3 py-2 border bg-gray-50 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm`}
         >
           {filterTypes.map((filterType) => (
@@ -303,6 +305,7 @@ const FilterInputs = ({
                 },
               });
             }}
+            // onCreateOption={handleFilterChange}
             options={renderAttributeValues()}
             placeholder="Value"
             isClearable
@@ -332,14 +335,14 @@ const FilterInputs = ({
       <>
         <div
           key="event"
-          className={`ml-${index === 0 ? 0 : 1} p-1 flex gap-4 relative`}
+          className={`ml-${index === 0 ? 0 : 0} p-1 flex gap-4 relative`}
         >
           <select
             name="filterType"
             value={filter.filterType}
             onChange={handleFilterChange}
             className={`w-2/6 -ml-${
-              index === 0 ? 2 : 3
+              index === 0 ? 2 : 2
             } px-3 py-2 border bg-gray-50 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm`}
           >
             {filterTypes.map((filterType) => (
@@ -440,11 +443,11 @@ const FilterInputs = ({
                   {filter.eventDataChildFilters.map(
                     (childFilter, childIndex, i) => (
                       <div
-                        key={i}
+                        key={childIndex}
                         className="my-2 border-2 border-gray-300 rounded-md mx-10"
                       >
                         <div className="m-2 ml-4 flex">
-                          {i >= 1 && (
+                          {childIndex >= 1 && (
                             <div className="relative -ml-4">
                               <span className="absolute -mt-2 -ml-10 p-1 border text-sm font-medium bg-slate-50 border-gray-300 rounded-md focus:outline-none">
                                 {filter.condition === "or" ? "Or" : "And"}
@@ -452,37 +455,38 @@ const FilterInputs = ({
                             </div>
                           )}
                           <Select
-                            name={`eventDataChildFilters[${childIndex}].eventproperty`}
+                            id={`event-property-select-${childIndex}`}
+                            name="eventproperty"
                             value={renderEventProperties().find(
                               (option) =>
                                 option.value === childFilter.eventproperty
                             )}
-                            onChange={(selectedOption) => {
+                            onChange={(selectedOption) =>
                               handleEventPropertyNameChange(
                                 selectedOption,
                                 childIndex
-                              );
-                            }}
+                              )
+                            }
                             options={renderEventProperties()}
-                            placeholder="Property"
+                            placeholder="Event Property"
                             isClearable
-                            className={`w-3/12 px-0 -ml-${
-                              i === 0 ? 2 : 0
-                            } py-0 mx-2 border bg-gray-50 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm`}
+                            className={`w-3/6 px-0 py-0 -ml-${
+                              childIndex === 0 ? 2 : 0
+                            } mx-3 border bg-gray-50 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm`}
                             styles={{
                               control: (provided, state) => ({
                                 ...provided,
-                                borderColor: "rgba(209, 213, 219, 0)", // border-gray-300
+                                borderColor: "rgba(209, 213, 219, 0)",
                                 boxShadow: state.isFocused
                                   ? "0 0 0 1px rgba(107, 114, 128, 1)"
-                                  : provided.boxShadow, // focus:ring-gray-500
+                                  : provided.boxShadow,
                                 "&:hover": {
-                                  borderColor: "rgba(209, 213, 219, 0)", // border-gray-300 on hover
+                                  borderColor: "rgba(209, 213, 219, 0)",
                                 },
                               }),
                               placeholder: (provided) => ({
                                 ...provided,
-                                color: "rgba(156, 163, 175, 1)", // text-gray-500
+                                color: "rgba(156, 163, 175, 1)",
                               }),
                             }}
                           />
@@ -496,54 +500,53 @@ const FilterInputs = ({
                                 e.target.value
                               )
                             }
-                            className="w-2/6 px-3 py-1 border bg-gray-50 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+                            className="w-2/6 px-3 mx-1 py-1 border bg-gray-50 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
                           >
                             <option value="">Comparison</option>
                             {renderCompareOptions()}
                           </select>
                           <CreatableSelect
-                            name={`eventDataChildFilters[${childIndex}].value`}
+                            name="value"
                             value={renderEventPropertyValue(
                               childFilter.eventproperty
                             ).find(
                               (option) => option.value === childFilter.value
                             )}
-                            onChange={(selectedOption) => {
-                              const newValue = selectedOption
-                                ? selectedOption.value
-                                : "";
+                            onChange={(selectedOption) =>
                               handleEventDataFilterChange(
                                 childIndex,
                                 "value",
-                                newValue
-                              );
-                            }}
+                                selectedOption ? selectedOption.value : ""
+                              )
+                            }
                             options={renderEventPropertyValue(
                               childFilter.eventproperty
                             )}
                             placeholder="Value"
                             isClearable
-                            className="w-2/6 px-0 mx-2 mr-2 py-0 border bg-gray-50 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+                            className="w-2/6 mx-1 px-0 py-0 border bg-gray-50 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
                             styles={{
                               control: (provided, state) => ({
                                 ...provided,
-                                borderColor: "rgba(209, 213, 219, 0)", // border-gray-300
+                                borderColor: "rgba(209, 213, 219, 0)",
                                 boxShadow: state.isFocused
                                   ? "0 0 0 1px rgba(107, 114, 128, 1)"
-                                  : provided.boxShadow, // focus:ring-gray-500
+                                  : provided.boxShadow,
                                 "&:hover": {
-                                  borderColor: "rgba(209, 213, 219, 0)", // border-gray-300 on hover
+                                  borderColor: "rgba(209, 213, 219, 0)",
                                 },
                               }),
                               placeholder: (provided) => ({
                                 ...provided,
-                                color: "rgba(156, 163, 175, 1)", // text-gray-500
+                                color: "rgba(156, 163, 175, 1)",
                               }),
                             }}
                           />
                           <button
                             type="button"
-                            onClick={() => handleDeleteEventDataFilter(i)}
+                            onClick={() =>
+                              handleDeleteEventDataFilter(childIndex)
+                            }
                             className="px-2 py-1 mr-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-black hover:bg-gray-300 focus:outline-none"
                           >
                             <RiDeleteBin5Line />
