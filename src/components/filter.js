@@ -162,7 +162,7 @@ const FilterInputs = ({
     handleFilterChange(e);
   };
 
-  // change will be 
+  // change will be
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     const newFilter = {
@@ -470,8 +470,12 @@ const FilterInputs = ({
                             options={renderEventProperties()}
                             placeholder="Event Property"
                             isClearable
-                            className={`w-3/6 px-0 py-0 -ml-${
-                              childIndex === 0 ? 2 : 0
+                            className={`w-3/6 px-0 py-0 ${
+                              childIndex === 0
+                                ? "-ml-2"
+                                : childIndex >= 1
+                                ? "ml-2"
+                                : ""
                             } mx-3 border bg-gray-50 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm`}
                             styles={{
                               control: (provided, state) => ({
